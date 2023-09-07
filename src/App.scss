@@ -1,5 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+* {
+}
+
 .App {
   text-align: center;
+  font-family: 'Roboto', sans-serif;
 }
 
 .App-logo {
@@ -34,5 +40,12 @@
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+
+.App {
+  .main {
+    padding: 20px;  
   }
 }
