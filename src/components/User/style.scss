@@ -1,0 +1,20 @@
+
+.User {
+    display: grid;
+    grid-template-columns: 5% 15% 20% 10% 40% 10%;
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.263);
+    padding: 20px 0;
+    cursor: pointer;
+
+    &:hover {
+        transform: scale(1.05);
+        // font-weight: bold;
+    }
+
+
+}
+
+.even {
+    background: rgba(0, 0, 0, 0.05);
+}

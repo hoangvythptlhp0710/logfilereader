@@ -1,11 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500&family=Roboto+Condensed&display=swap');
+
 
 * {
+  font-family: 'Roboto Condensed', sans-serif;
+  transition: all 0.3s ease-in-out;
 }
 
 .App {
   text-align: center;
-  font-family: 'Roboto', sans-serif;
+
 }
 
 .App-logo {
@@ -38,14 +41,172 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
 
+.bold {
+  font-weight: bold;
+}
 
 .App {
   .main {
-    padding: 20px;  
+    padding: 20px;
+
+    .app-title {
+      font-size: 45px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      // margin-top: 30px;
+      font-family: 'Oswald', sans-serif;
+
+    }
+
+    .content {
+      font-size: 18px;
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+
+      .btn-container {
+        // background: red;
+        width: 1200px;
+        display: flex;
+        justify-content: space-between;
+        padding: 15px 10px;
+        background-color: #ececec;
+        border-radius: 10px;
+
+
+        input {
+          padding: 10px 10px;
+          font-size: 16px;
+          border-radius: 3px;
+          cursor: pointer;
+          font-family: 'Roboto Condensed', sans-serif;
+        }
+
+        select {
+          padding: 10px 10px;
+          font-size: 16px;
+          margin-left: 10px;
+          min-width: 600px;
+
+          option {
+            font-size: 16px;
+            padding: 20px;
+          }
+        }
+
+        .date {
+          width: 150px;
+          margin-left: 10px;
+        }
+      }
+
+
+      .lower-btn-container {
+        display: flex;
+        justify-content: space-between;
+        width: 1200px;
+        padding: 5px 10px;
+        align-items: center;
+
+        .excel-btn {
+          display: flex;
+          align-items: center;
+          background: rgb(172, 172, 172);
+          background: rgba(0, 0, 0, 0.425);
+          color: white;
+          padding: 10px 10px;
+          border-radius: 7px;
+          cursor: pointer;
+          font-weight: bold;
+
+          &:hover {
+            background: black;
+            color: white;
+          }
+
+          img {
+            width: 50px;
+            height: auto;
+            object-fit: cover;
+          }
+
+          p {
+            margin: 0;
+          }
+        }
+
+
+        .element-per-page-setting {
+          select {
+            padding: 10px 10px;
+            width: fit-content;
+            font-size: 16px;
+            margin-left: 10px;
+          }
+        }
+
+        .searching-status {
+          font-size: 20px;
+          font-weight: bold;
+        }
+
+        .paging-btn-container {
+          display: flex;
+          align-items: center;
+
+          .page-count,
+          .prev-btn,
+          .next-btn {
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-left: 10px;
+          }
+
+          .prev-btn,
+          .next-btn  {
+            background: rgba(0, 0, 0, 0.425);
+            color: white;
+            &:hover {
+              background: black;
+              color: white;
+            }
+          }
+        }
+      }
+
+
+      .user-container {
+        display: flex;
+        flex-direction: column;
+        width: 1200px;
+        // border-radius: 15px;
+        box-shadow: 1px 1px 5px 3px rgba(0, 0, 0, 0.150);
+
+        .table-heading {
+          background: black;
+          color: white;
+          display: grid;
+          grid-template-columns: 5% 15% 20% 10% 40% 10%;
+          font-size: 18px;
+          font-weight: bold;
+          margin-bottom: 10px;
+          border-bottom: 1px solid rgba(0, 0, 0, 0.425);
+          padding: 25px 0;
+        }
+
+
+      }
+
+    }
   }
 }
