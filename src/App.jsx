@@ -2,6 +2,7 @@ import './App.scss';
 import { useState, useEffect } from 'react';
 import ExcelLogo from './assets/excelLogo.png'
 import User from './components/User';
+import axios from 'axios';
 
 function App() {
 
@@ -15,7 +16,7 @@ function App() {
   const [fromDate, setFromDate] = useState(null);
   const [toDate, setToDate] = useState(null);
   const [searchingStatus, setSearchingStatus] = useState('') 
-
+  const [downloadExcelLink, setDownloadExcelLink] = useState('')
 
 
   useEffect(() => {
@@ -24,6 +25,11 @@ function App() {
     const formattedDate = currentDate.toISOString().split('T')[0];
     setToDate(formattedDate);
   }, []); // The empty dependency array ensures this effect runs only once when the component mounts
+
+
+  useEffect(() => {
+
+  })
 
 
   const data = {
@@ -700,9 +706,17 @@ function App() {
 
   useEffect(() => {
     fetchData()
-    console.log('to date', toDate);
     console.log('from date', fromDate);
+    console.log('to date', toDate);
     console.log('current company id', currentCompanyId);
+
+
+    const fromDateParam = fromDate ? `from=${fromDate}` : "";
+    const toDateParam = toDate ? `&to=${toDate}` : "";
+    const companyIdParam = currentCompanyId != 'all' ? `&companyId=${currentCompanyId}` : "";
+
+    const linkDownLoadExcel = `${process.env.REACT_APP_BACKEND_URL}/exportToExcel?${fromDateParam}${toDateParam}${companyIdParam}`
+    setDownloadExcelLink(linkDownLoadExcel);
   }, [toDate, fromDate, currentCompanyId])
 
   // useEffect(() => {
@@ -710,22 +724,32 @@ function App() {
   // }, [])
 
   const fetchData = async () => {
+    const fromDateParam = fromDate ? `from=${fromDate}` : "";
+    const toDateParam = toDate ? `&to=${toDate}` : "";
+    const companyIdParam = currentCompanyId != 'all' ? `&companyId=${currentCompanyId}` : "";
+
     setSearchingStatus("Searching...");
-    // stop for 1 second
-    await new Promise(r => setTimeout(r, 3000));
-    const responseData = JSON.parse(JSON.stringify(data));
-    const { companies, loginRecords } = responseData;
+    const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/countLogin?${fromDateParam}${toDateParam}${companyIdParam}`);
+    setSearchingStatus("");
+
+
+    const loginRecords = response.data.data.loginRecords;
+    const companyInfor = response.data.data.companies;
 
     setUsers(loginRecords);
-    setCompanies(companies);
 
+    // only set companies if there are companies (in the first time)
+    if (companies.length == 0) {
+      setCompanies(companyInfor);
+    }
+    // calculate total page
     const totalPage = Math.ceil(loginRecords.length / parseInt(elementNumPerPage));
     setTotalPageCount(totalPage);
 
+    // set current page for the first time
     const pageData = loginRecords.slice(currentPageIndex * elementNumPerPage, (currentPageIndex + 1) * elementNumPerPage);
     setCurrentElements(pageData);
 
-    setSearchingStatus("");
   }
 
 
@@ -779,7 +803,7 @@ function App() {
             <label htmlFor="">
               <span className="bold">Company:</span>
               <select value={currentCompanyId} onChange={e => setCurrentCompanyId(e.target.value)}>
-                <option value="a">All</option>
+                <option value="all">All</option>
                 {companies.map((company, index) => {
                   return (
                     <option key={index} value={company.companyId}>{company.companyName}</option>
@@ -793,7 +817,7 @@ function App() {
           <div className="lower-btn-container">
             <div className="excel-btn">
               <img src={ExcelLogo} alt="" />
-              <p>Export to Excel</p>
+              <a href={downloadExcelLink}>Export to Excel</a>
             </div>
             <div className="searching-status">
               {searchingStatus && <p>{searchingStatus}</p>}
