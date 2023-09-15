@@ -15,7 +15,7 @@ function App() {
   const [fromDate, setFromDate] = useState(null);
   const [toDate, setToDate] = useState(null);
   const [searchingStatus, setSearchingStatus] = useState('') 
-
+  const [sortBy, setSortBy] = useState('normal')
 
 
   useEffect(() => {
@@ -25,6 +25,8 @@ function App() {
     setToDate(formattedDate);
   }, []); // The empty dependency array ensures this effect runs only once when the component mounts
 
+
+  
 
   const data = {
     "companies": [
@@ -683,7 +685,11 @@ function App() {
   
 
   useEffect(() => {
+    resetPaging();
+  }, [elementNumPerPage])
 
+
+  const resetPaging = () => {
     const newPageIndex = 0;
     setCurrentPageIndex(newPageIndex);
 
@@ -693,21 +699,34 @@ function App() {
     const pageData = users.slice(newPageIndex * elementNumPerPage, (newPageIndex + 1) * elementNumPerPage);
     setCurrentElements(pageData);
 
-    
-
-  }, [elementNumPerPage])
-
+  }
 
   useEffect(() => {
     fetchData()
-    console.log('to date', toDate);
-    console.log('from date', fromDate);
-    console.log('current company id', currentCompanyId);
   }, [toDate, fromDate, currentCompanyId])
 
-  // useEffect(() => {
-  //   fetchData()
-  // }, [])
+  useEffect(() => {
+    console.log("HERERE");
+    console.log(sortBy);
+    if (sortBy == 'normal') {
+      fetchData()
+    } else if (sortBy == 'asc') {
+
+      const sorted = users.sort((a, b) => {
+        return a.loginCount - b.loginCount;
+      })
+      setUsers(sorted)  
+      resetPaging();
+    
+    } else if (sortBy == 'desc') {
+      const sorted =  users.sort((a, b) => {
+        return b.loginCount - a.loginCount;
+      })
+      setUsers(sorted)      
+      resetPaging();
+
+    }
+  },[sortBy])
 
   const fetchData = async () => {
     setSearchingStatus("Searching...");
@@ -748,9 +767,12 @@ function App() {
 
   const handleSetElementNumPerPage = (e) => {
 
-    console.log('wowowadadad');
     setElementNumPerPage(e.target.value);
 
+  }
+
+  const handleSetSorting = (e) => {
+    setSortBy(e.target.value);
   }
 
 
@@ -799,6 +821,16 @@ function App() {
               {searchingStatus && <p>{searchingStatus}</p>}
             </div>
             <div className="paging-btn-container">
+
+              <div className="sort-type">
+                <select name="" id="" value={sortBy} onChange={e => handleSetSorting(e)}>
+                  <option value="normal">Normal</option>
+                  <option value="asc">Ascending</option>
+                  <option value="desc">Descending</option>
+                </select>
+              </div>
+
+
               <div className="element-per-page-setting">
                 <select name="" id="" value={elementNumPerPage} onChange={e => handleSetElementNumPerPage(e)}>
                   <option value="20">20 per page</option>
@@ -821,6 +853,9 @@ function App() {
               <div className="comany-name">Company Name</div>
               <div className="login-count">Login Count</div>
             </div>
+
+
+
             {currentElements.map((user, index) => {
               return (
                 <User key={index} {...user} index={index} />
