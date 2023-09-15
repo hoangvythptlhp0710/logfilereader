@@ -719,9 +719,7 @@ function App() {
     setDownloadExcelLink(linkDownLoadExcel);
   }, [toDate, fromDate, currentCompanyId])
 
-  // useEffect(() => {
-  //   fetchData()
-  // }, [])
+
 
   const fetchData = async () => {
     const fromDateParam = fromDate ? `from=${fromDate}` : "";
