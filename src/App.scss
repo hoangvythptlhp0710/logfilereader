@@ -60,6 +60,7 @@
       font-weight: bold;
       margin-bottom: 20px;
       // margin-top: 30px;
+      color: #4c7ed5;
       font-family: 'Oswald', sans-serif;
 
     }
@@ -119,8 +120,8 @@
         .excel-btn {
           display: flex;
           align-items: center;
-          background: rgb(172, 172, 172);
-          background: rgba(0, 0, 0, 0.425);
+          background: rgb(37, 42, 191);
+          background: rgba(21, 27, 197, 0.898);
           color: white;
           padding: 10px 10px;
           border-radius: 7px;
@@ -128,7 +129,7 @@
           font-weight: bold;
 
           &:hover {
-            background: black;
+            background: rgb(9, 44, 135);
             color: white;
           }
 
@@ -146,6 +147,7 @@
         }
 
 
+        .sort-type,
         .element-per-page-setting {
           select {
             padding: 10px 10px;
@@ -174,12 +176,17 @@
             margin-left: 10px;
           }
 
+          .total-record {
+            font-size: 20px;
+            font-weight: bold;
+            margin-right: 20px;
+          }
           .prev-btn,
           .next-btn  {
-            background: rgba(0, 0, 0, 0.425);
+            background: rgba(21, 27, 197, 0.898);
             color: white;
             &:hover {
-              background: black;
+              background: rgb(9,44,135);
               color: white;
             }
           }
@@ -195,7 +202,7 @@
         box-shadow: 1px 1px 5px 3px rgba(0, 0, 0, 0.150);
 
         .table-heading {
-          background: black;
+          background: rgb(44, 89, 185);
           color: white;
           display: grid;
           grid-template-columns: 5% 15% 20% 10% 40% 10%;

@@ -16,6 +16,7 @@ function App() {
   const [fromDate, setFromDate] = useState(null);
   const [toDate, setToDate] = useState(null);
   const [searchingStatus, setSearchingStatus] = useState('') 
+  const [sortBy, setSortBy] = useState('normal')
   const [downloadExcelLink, setDownloadExcelLink] = useState('')
 
 
@@ -28,668 +29,11 @@ function App() {
 
 
   useEffect(() => {
+    resetPaging();
+  }, [elementNumPerPage])
 
-  })
 
-
-  const data = {
-    "companies": [
-      {
-        "companyId": 3,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT"
-      },
-      {
-        "companyId": 4,
-        "companyName": "Coway Vina"
-      }
-    ],
-    "loginRecords": [
-      {
-        "dateTime": "25-5-2023",
-        "username": "DOÃN THỊ THÚY HÒA",
-        "phoneNumber": "0914261181",
-        "companyId": 3,
-        "userId": 1876,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 4
-      },
-      {
-        "dateTime": "25-5-2023",
-        "username": "Nguyễn Hữu Thanh",
-        "phoneNumber": "0365502241",
-        "companyId": 3,
-        "userId": 2453,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 12
-      },
-      {
-        "dateTime": "25-5-2023",
-        "username": "Unknown",
-        "phoneNumber": "Unknown",
-        "companyId": -1,
-        "userId": 3030,
-        "companyName": "Unknown",
-        "loginCount": 6
-      },
-      {
-        "dateTime": "25-5-2023",
-        "username": "Vũ Đình Sâm",
-        "phoneNumber": "0982941149",
-        "companyId": 3,
-        "userId": 3095,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 9
-      },
-      {
-        "dateTime": "26-5-2023",
-        "username": "ĐOÀN HUYỀN TRANG",
-        "phoneNumber": "0936138679",
-        "companyId": 3,
-        "userId": 1841,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 4
-      },
-      {
-        "dateTime": "26-5-2023",
-        "username": "TRAN THI THANH THAO",
-        "phoneNumber": "0932016691",
-        "companyId": 4,
-        "userId": 2131,
-        "companyName": "Coway Vina",
-        "loginCount": 6
-      },
-      {
-        "dateTime": "26-5-2023",
-        "username": "Nguyễn Hữu Thanh",
-        "phoneNumber": "0365502241",
-        "companyId": 3,
-        "userId": 2453,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 4
-      },
-      {
-        "dateTime": "26-5-2023",
-        "username": "NGUYỄN THỊ MINH HƯƠNG",
-        "phoneNumber": "0902207692",
-        "companyId": 3,
-        "userId": 1885,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "27-5-2023",
-        "username": "NGUYỄN THỊ MINH HƯƠNG",
-        "phoneNumber": "0902207692",
-        "companyId": 3,
-        "userId": 1885,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "28-5-2023",
-        "username": "NGUYỄN THỊ MINH HƯƠNG",
-        "phoneNumber": "0902207692",
-        "companyId": 3,
-        "userId": 1885,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "29-5-2023",
-        "username": "NGUYỄN THỊ MINH HƯƠNG",
-        "phoneNumber": "0902207692",
-        "companyId": 3,
-        "userId": 1885,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "30-5-2023",
-        "username": "NGUYỄN THỊ MINH HƯƠNG",
-        "phoneNumber": "0902207692",
-        "companyId": 3,
-        "userId": 1885,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "31-5-2023",
-        "username": "NGUYỄN THỊ MINH HƯƠNG",
-        "phoneNumber": "0902207692",
-        "companyId": 3,
-        "userId": 1885,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "1-6-2023",
-        "username": "NGUYỄN THỊ MINH HƯƠNG",
-        "phoneNumber": "0902207692",
-        "companyId": 3,
-        "userId": 1885,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "2-6-2023",
-        "username": "NGUYỄN THỊ MINH HƯƠNG",
-        "phoneNumber": "0902207692",
-        "companyId": 3,
-        "userId": 1885,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "3-6-2023",
-        "username": "TRAN THI THANH THAO",
-        "phoneNumber": "0932016691",
-        "companyId": 4,
-        "userId": 2131,
-        "companyName": "Coway Vina",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "4-6-2023",
-        "username": "TRAN THI THANH THAO",
-        "phoneNumber": "0932016691",
-        "companyId": 4,
-        "userId": 2131,
-        "companyName": "Coway Vina",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "27-5-2023",
-        "username": "NGUYỄN THỊ MINH HƯƠNG",
-        "phoneNumber": "0902207692",
-        "companyId": 3,
-        "userId": 1885,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "28-5-2023",
-        "username": "NGUYỄN THỊ MINH HƯƠNG",
-        "phoneNumber": "0902207692",
-        "companyId": 3,
-        "userId": 1885,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "29-5-2023",
-        "username": "NGUYỄN THỊ MINH HƯƠNG",
-        "phoneNumber": "0902207692",
-        "companyId": 3,
-        "userId": 1885,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "30-5-2023",
-        "username": "NGUYỄN THỊ MINH HƯƠNG",
-        "phoneNumber": "0902207692",
-        "companyId": 3,
-        "userId": 1885,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "31-5-2023",
-        "username": "NGUYỄN THỊ MINH HƯƠNG",
-        "phoneNumber": "0902207692",
-        "companyId": 3,
-        "userId": 1885,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "1-6-2023",
-        "username": "NGUYỄN THỊ MINH HƯƠNG",
-        "phoneNumber": "0902207692",
-        "companyId": 3,
-        "userId": 1885,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "2-6-2023",
-        "username": "NGUYỄN THỊ MINH HƯƠNG",
-        "phoneNumber": "0902207692",
-        "companyId": 3,
-        "userId": 1885,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "3-6-2023",
-        "username": "TRAN THI THANH THAO",
-        "phoneNumber": "0932016691",
-        "companyId": 4,
-        "userId": 2131,
-        "companyName": "Coway Vina",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "4-6-2023",
-        "username": "TRAN THI THANH THAO",
-        "phoneNumber": "0932016691",
-        "companyId": 4,
-        "userId": 2131,
-        "companyName": "Coway Vina",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "27-5-2023",
-        "username": "NGUYỄN THỊ MINH HƯƠNG",
-        "phoneNumber": "0902207692",
-        "companyId": 3,
-        "userId": 1885,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "28-5-2023",
-        "username": "NGUYỄN THỊ MINH HƯƠNG",
-        "phoneNumber": "0902207692",
-        "companyId": 3,
-        "userId": 1885,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "29-5-2023",
-        "username": "NGUYỄN THỊ MINH HƯƠNG",
-        "phoneNumber": "0902207692",
-        "companyId": 3,
-        "userId": 1885,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "30-5-2023",
-        "username": "NGUYỄN THỊ MINH HƯƠNG",
-        "phoneNumber": "0902207692",
-        "companyId": 3,
-        "userId": 1885,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "31-5-2023",
-        "username": "NGUYỄN THỊ MINH HƯƠNG",
-        "phoneNumber": "0902207692",
-        "companyId": 3,
-        "userId": 1885,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "1-6-2023",
-        "username": "NGUYỄN THỊ MINH HƯƠNG",
-        "phoneNumber": "0902207692",
-        "companyId": 3,
-        "userId": 1885,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "2-6-2023",
-        "username": "NGUYỄN THỊ MINH HƯƠNG",
-        "phoneNumber": "0902207692",
-        "companyId": 3,
-        "userId": 1885,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "3-6-2023",
-        "username": "TRAN THI THANH THAO",
-        "phoneNumber": "0932016691",
-        "companyId": 4,
-        "userId": 2131,
-        "companyName": "Coway Vina",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "4-6-2023",
-        "username": "TRAN THI THANH THAO",
-        "phoneNumber": "0932016691",
-        "companyId": 4,
-        "userId": 2131,
-        "companyName": "Coway Vina",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "27-5-2023",
-        "username": "NGUYỄN THỊ MINH HƯƠNG",
-        "phoneNumber": "0902207692",
-        "companyId": 3,
-        "userId": 1885,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "28-5-2023",
-        "username": "NGUYỄN THỊ MINH HƯƠNG",
-        "phoneNumber": "0902207692",
-        "companyId": 3,
-        "userId": 1885,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "29-5-2023",
-        "username": "NGUYỄN THỊ MINH HƯƠNG",
-        "phoneNumber": "0902207692",
-        "companyId": 3,
-        "userId": 1885,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "30-5-2023",
-        "username": "NGUYỄN THỊ MINH HƯƠNG",
-        "phoneNumber": "0902207692",
-        "companyId": 3,
-        "userId": 1885,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "31-5-2023",
-        "username": "NGUYỄN THỊ MINH HƯƠNG",
-        "phoneNumber": "0902207692",
-        "companyId": 3,
-        "userId": 1885,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "1-6-2023",
-        "username": "NGUYỄN THỊ MINH HƯƠNG",
-        "phoneNumber": "0902207692",
-        "companyId": 3,
-        "userId": 1885,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "2-6-2023",
-        "username": "NGUYỄN THỊ MINH HƯƠNG",
-        "phoneNumber": "0902207692",
-        "companyId": 3,
-        "userId": 1885,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "3-6-2023",
-        "username": "TRAN THI THANH THAO",
-        "phoneNumber": "0932016691",
-        "companyId": 4,
-        "userId": 2131,
-        "companyName": "Coway Vina",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "4-6-2023",
-        "username": "TRAN THI THANH THAO",
-        "phoneNumber": "0932016691",
-        "companyId": 4,
-        "userId": 2131,
-        "companyName": "Coway Vina",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "27-5-2023",
-        "username": "NGUYỄN THỊ MINH HƯƠNG",
-        "phoneNumber": "0902207692",
-        "companyId": 3,
-        "userId": 1885,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "28-5-2023",
-        "username": "NGUYỄN THỊ MINH HƯƠNG",
-        "phoneNumber": "0902207692",
-        "companyId": 3,
-        "userId": 1885,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "29-5-2023",
-        "username": "NGUYỄN THỊ MINH HƯƠNG",
-        "phoneNumber": "0902207692",
-        "companyId": 3,
-        "userId": 1885,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "30-5-2023",
-        "username": "NGUYỄN THỊ MINH HƯƠNG",
-        "phoneNumber": "0902207692",
-        "companyId": 3,
-        "userId": 1885,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "31-5-2023",
-        "username": "NGUYỄN THỊ MINH HƯƠNG",
-        "phoneNumber": "0902207692",
-        "companyId": 3,
-        "userId": 1885,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "1-6-2023",
-        "username": "NGUYỄN THỊ MINH HƯƠNG",
-        "phoneNumber": "0902207692",
-        "companyId": 3,
-        "userId": 1885,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "2-6-2023",
-        "username": "NGUYỄN THỊ MINH HƯƠNG",
-        "phoneNumber": "0902207692",
-        "companyId": 3,
-        "userId": 1885,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "3-6-2023",
-        "username": "TRAN THI THANH THAO",
-        "phoneNumber": "0932016691",
-        "companyId": 4,
-        "userId": 2131,
-        "companyName": "Coway Vina",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "4-6-2023",
-        "username": "TRAN THI THANH THAO",
-        "phoneNumber": "0932016691",
-        "companyId": 4,
-        "userId": 2131,
-        "companyName": "Coway Vina",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "27-5-2023",
-        "username": "NGUYỄN THỊ MINH HƯƠNG",
-        "phoneNumber": "0902207692",
-        "companyId": 3,
-        "userId": 1885,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "28-5-2023",
-        "username": "NGUYỄN THỊ MINH HƯƠNG",
-        "phoneNumber": "0902207692",
-        "companyId": 3,
-        "userId": 1885,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "29-5-2023",
-        "username": "NGUYỄN THỊ MINH HƯƠNG",
-        "phoneNumber": "0902207692",
-        "companyId": 3,
-        "userId": 1885,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "30-5-2023",
-        "username": "NGUYỄN THỊ MINH HƯƠNG",
-        "phoneNumber": "0902207692",
-        "companyId": 3,
-        "userId": 1885,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "31-5-2023",
-        "username": "NGUYỄN THỊ MINH HƯƠNG",
-        "phoneNumber": "0902207692",
-        "companyId": 3,
-        "userId": 1885,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "1-6-2023",
-        "username": "NGUYỄN THỊ MINH HƯƠNG",
-        "phoneNumber": "0902207692",
-        "companyId": 3,
-        "userId": 1885,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "2-6-2023",
-        "username": "NGUYỄN THỊ MINH HƯƠNG",
-        "phoneNumber": "0902207692",
-        "companyId": 3,
-        "userId": 1885,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "3-6-2023",
-        "username": "TRAN THI THANH THAO",
-        "phoneNumber": "0932016691",
-        "companyId": 4,
-        "userId": 2131,
-        "companyName": "Coway Vina",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "4-6-2023",
-        "username": "TRAN THI THANH THAO",
-        "phoneNumber": "0932016691",
-        "companyId": 4,
-        "userId": 2131,
-        "companyName": "Coway Vina",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "27-5-2023",
-        "username": "NGUYỄN THỊ MINH HƯƠNG",
-        "phoneNumber": "0902207692",
-        "companyId": 3,
-        "userId": 1885,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "28-5-2023",
-        "username": "NGUYỄN THỊ MINH HƯƠNG",
-        "phoneNumber": "0902207692",
-        "companyId": 3,
-        "userId": 1885,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "29-5-2023",
-        "username": "NGUYỄN THỊ MINH HƯƠNG",
-        "phoneNumber": "0902207692",
-        "companyId": 3,
-        "userId": 1885,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "30-5-2023",
-        "username": "NGUYỄN THỊ MINH HƯƠNG",
-        "phoneNumber": "0902207692",
-        "companyId": 3,
-        "userId": 1885,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "31-5-2023",
-        "username": "NGUYỄN THỊ MINH HƯƠNG",
-        "phoneNumber": "0902207692",
-        "companyId": 3,
-        "userId": 1885,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "1-6-2023",
-        "username": "NGUYỄN THỊ MINH HƯƠNG",
-        "phoneNumber": "0902207692",
-        "companyId": 3,
-        "userId": 1885,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "2-6-2023",
-        "username": "NGUYỄN THỊ MINH HƯƠNG",
-        "phoneNumber": "0902207692",
-        "companyId": 3,
-        "userId": 1885,
-        "companyName": "Công Ty Cổ Phần Thanh Toán Điện Tử VNPT",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "3-6-2023",
-        "username": "TRAN THI THANH THAO",
-        "phoneNumber": "0932016691",
-        "companyId": 4,
-        "userId": 2131,
-        "companyName": "Coway Vina",
-        "loginCount": 1
-      },
-      {
-        "dateTime": "4-6-2023",
-        "username": "TRAN THI THANH THAO",
-        "phoneNumber": "0932016691",
-        "companyId": 4,
-        "userId": 2131,
-        "companyName": "Coway Vina",
-        "loginCount": 1
-      }
-    ]
-  }
-
-  
-
-  useEffect(() => {
-
+  const resetPaging = () => {
     const newPageIndex = 0;
     setCurrentPageIndex(newPageIndex);
 
@@ -699,16 +43,10 @@ function App() {
     const pageData = users.slice(newPageIndex * elementNumPerPage, (newPageIndex + 1) * elementNumPerPage);
     setCurrentElements(pageData);
 
-    
-
-  }, [elementNumPerPage])
-
+  }
 
   useEffect(() => {
     fetchData()
-    console.log('from date', fromDate);
-    console.log('to date', toDate);
-    console.log('current company id', currentCompanyId);
 
 
     const fromDateParam = fromDate ? `from=${fromDate}` : "";
@@ -719,7 +57,26 @@ function App() {
     setDownloadExcelLink(linkDownLoadExcel);
   }, [toDate, fromDate, currentCompanyId])
 
+  useEffect(() => {
+    if (sortBy == 'normal') {
+      fetchData()
+    } else if (sortBy == 'asc') {
 
+      const sorted = users.sort((a, b) => {
+        return a.loginCount - b.loginCount;
+      })
+      setUsers(sorted)  
+      resetPaging();
+    
+    } else if (sortBy == 'desc') {
+      const sorted =  users.sort((a, b) => {
+        return b.loginCount - a.loginCount;
+      })
+      setUsers(sorted)      
+      resetPaging();
+
+    }
+  },[sortBy])
 
   const fetchData = async () => {
     const fromDateParam = fromDate ? `from=${fromDate}` : "";
@@ -770,9 +127,12 @@ function App() {
 
   const handleSetElementNumPerPage = (e) => {
 
-    console.log('wowowadadad');
     setElementNumPerPage(e.target.value);
 
+  }
+
+  const handleSetSorting = (e) => {
+    setSortBy(e.target.value);
   }
 
 
@@ -821,6 +181,20 @@ function App() {
               {searchingStatus && <p>{searchingStatus}</p>}
             </div>
             <div className="paging-btn-container">
+
+              <div className="total-record">
+                Total records: {users.length}
+              </div>
+
+              <div className="sort-type">
+                <select name="" id="" value={sortBy} onChange={e => handleSetSorting(e)}>
+                  <option value="normal">Normal</option>
+                  <option value="asc">Ascending</option>
+                  <option value="desc">Descending</option>
+                </select>
+              </div>
+
+
               <div className="element-per-page-setting">
                 <select name="" id="" value={elementNumPerPage} onChange={e => handleSetElementNumPerPage(e)}>
                   <option value="20">20 per page</option>
@@ -843,6 +217,9 @@ function App() {
               <div className="comany-name">Company Name</div>
               <div className="login-count">Login Count</div>
             </div>
+
+
+
             {currentElements.map((user, index) => {
               return (
                 <User key={index} {...user} index={index} />
